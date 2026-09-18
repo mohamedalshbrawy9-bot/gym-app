@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Tajawal:wght@400;500;700;800&display=swap');
+
+:root {
+  --bg: #14161A;
+  --surface: #1D2025;
+  --surface-2: #262A31;
+  --border: #333840;
+  --text: #EEEFF1;
+  --text-dim: #8B909A;
+  --accent: #D6FF3F;
+  --accent-text: #1A1F0A;
+  --danger: #FF6B6B;
+  --font-display: 'Bebas Neue', 'Tajawal', sans-serif;
+  --font-body: 'Tajawal', sans-serif;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.auth-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px 26px;
+  width: 100%;
+  max-width: 380px;
+}
+.brand {
+  font-family: var(--font-display);
+  font-size: 32px;
+  letter-spacing: 1px;
+  text-align: center;
+  margin-bottom: 4px;
+}
+.brand span { color: var(--accent); }
+.subtitle {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 14px;
+  margin-bottom: 26px;
+}
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+}
+input {
+  width: 100%;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 15px;
+  font-family: inherit;
+  margin-bottom: 16px;
+}
+input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+button {
+  width: 100%;
+  background: var(--accent);
+  color: var(--accent-text);
+  border: none;
+  border-radius: 10px;
+  padding: 13px;
+  font-size: 16px;
+  font-weight: 800;
+  font-family: inherit;
+  cursor: pointer;
+}
+button:active { transform: scale(0.98); }
+.switch-link {
+  text-align: center;
+  margin-top: 18px;
+  font-size: 14px;
+  color: var(--text-dim);
+}
+.switch-link a { color: var(--accent); text-decoration: none; font-weight: 700; }
+.error-box {
+  background: rgba(255,107,107,.12);
+  border: 1px solid var(--danger);
+  color: var(--danger);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 13px;
+  margin-bottom: 16px;
+  display: none;
+}
+.error-box.show { display: block; }
