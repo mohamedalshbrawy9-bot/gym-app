@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إنشاء حساب — جدول الجيم</title>
+<link rel="stylesheet" href="auth-style.css">
+</head>
+<body>
+  <div class="auth-card">
+    <div class="brand">جدول <span>الجيم</span></div>
+    <div class="subtitle">اعمل حسابك وابدأ جدولك</div>
+    <div class="error-box" id="errorBox"></div>
+    <form id="signupForm">
+      <label>الإيميل</label>
+      <input type="email" id="email" required autocomplete="email">
+      <label>الباسورد (6 حروف/أرقام على الأقل)</label>
+      <input type="password" id="password" required autocomplete="new-password" minlength="6">
+      <label>تأكيد الباسورد</label>
+      <input type="password" id="confirm" required autocomplete="new-password" minlength="6">
+      <button type="submit">إنشاء الحساب</button>
+    </form>
+    <div class="switch-link">عندك حساب بالفعل؟ <a href="/login.html">سجل دخولك</a></div>
+  </div>
+
+<script>
+const form = document.getElementById("signupForm");
+const errorBox = document.getElementById("errorBox");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  errorBox.classList.remove("show");
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const confirm = document.getElementById("confirm").value;
+
+  if (password !== confirm) {
+    errorBox.textContent = "الباسورد وتأكيده مش متطابقين";
+    errorBox.classList.add("show");
+    return;
+  }
+
+  const btn = form.querySelector("button");
+  btn.disabled = true; btn.textContent = "بيتعمل...";
+  try {
+    const res = await fetch("/api/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "حصل خطأ");
+    window.location.href = "/app.html";
+  } catch (err) {
+    errorBox.textContent = err.message;
+    errorBox.classList.add("show");
+    btn.disabled = false; btn.textContent = "إنشاء الحساب";
+  }
+});
+</script>
+</body>
+</html>
