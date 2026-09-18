@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>جدول الجيم</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #14161A;
+    --surface: #1D2025;
+    --surface-2: #262A31;
+    --border: #333840;
+    --text: #EEEFF1;
+    --text-dim: #8B909A;
+    --accent: #D6FF3F;
+    --accent-text: #1A1F0A;
+    --danger: #FF6B6B;
+    --radius: 14px;
+    --font-display: 'Bebas Neue', 'Tajawal', sans-serif;
+    --font-body: 'Tajawal', 'Inter', sans-serif;
+  }
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+  }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --bg: #F3F4F1;
+      --surface: #FFFFFF;
+      --surface-2: #ECEEE9;
+      --border: #DCDFD8;
+      --text: #1A1D16;
+      --text-dim: #6C7268;
+      --accent: #9FCB1E;
+      --accent-text: #10130A;
+      --danger: #D6483F;
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #F3F4F1;
+    --surface: #FFFFFF;
+    --surface-2: #ECEEE9;
+    --border: #DCDFD8;
+    --text: #1A1D16;
+    --text-dim: #6C7268;
+    --accent: #9FCB1E;
+    --accent-text: #10130A;
+    --danger: #D6483F;
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    padding-bottom: 84px;
+    overflow-x: hidden;
+  }
+  .wrap { max-width: 560px; margin: 0 auto; padding: 20px 16px 8px; }
+
+  /* ---------- Top bar ---------- */
+  .topbar {
+    display: flex; align-items: baseline; justify-content: space-between;
+    padding: 4px 2px 18px;
+  }
+  .topbar .brand {
+    font-family: var(--font-display);
+    font-size: 28px; letter-spacing: 1px; color: var(--text);
+  }
+  .topbar .brand span { color: var(--accent); }
+  .topbar .date { font-size: 12px; color: var(--text-dim); }
+
+  /* ---------- Cards ---------- */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+    margin-bottom: 14px;
+  }
+  .muted { color: var(--text-dim); font-size: 14px; line-height: 1.6; }
+
+  h1, h2, h3 { margin: 0; font-weight: 700; }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 22px; letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+
+  /* ---------- Buttons ---------- */
+  button { font-family: inherit; cursor: pointer; border: none; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    background: var(--surface-2); color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 10px; padding: 11px 16px;
+    font-size: 15px; font-weight: 600;
+    transition: transform .08s ease, background .15s ease;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn-accent {
+    background: var(--accent); color: var(--accent-text); border-color: var(--accent);
+  }
+  .btn-ghost { background: transparent; border-color: var(--border); }
+  .btn-danger { background: transparent; color: var(--danger); border-color: var(--danger); }
+  .btn-block { width: 100%; }
+  .btn-sm { padding: 7px 12px; font-size: 13px; border-radius: 8px; }
+  .icon-btn {
+    background: transparent; border: none; color: var(--text-dim);
+    font-size: 18px; padding: 4px 8px; line-height: 1;
+  }
+
+  /* ---------- Bottom nav ---------- */
+  .tabbar {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: center;
+    padding: 8px max(8px, env(safe-area-inset-left)) calc(8px + env(safe-area-inset-bottom));
+    z-index: 50;
+  }
+  .tabbar-inner { display: flex; gap: 4px; width: 100%; max-width: 560px; }
+  .tab {
+    flex: 1; background: none; border: none; color: var(--text-dim);
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    padding: 6px 4px; border-radius: 10px; font-size: 11px; font-weight: 600;
+  }
+  .tab .ic { font-size: 20px; }
+  .tab.active { color: var(--accent); }
+
+  /* ---------- Exercise row (today) ---------- */
+  .ex-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 0; border-bottom: 1px solid var(--border);
+    gap: 10px;
+  }
+  .ex-row:last-child { border-bottom: none; }
+  .ex-info { flex: 1; min-width: 0; }
+  .ex-name { font-size: 15px; font-weight: 700; }
+  .ex-muscle { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+  .set-dots { display: flex; gap: 7px; flex-shrink: 0; }
+  .dot {
+    width: 30px; height: 30px; border-radius: 8px;
+    border: 2px solid var(--border); background: transparent;
+    color: var(--text-dim); font-size: 12px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .dot.done { background: var(--accent); border-color: var(--accent); color: var(--accent-text); }
+
+  .progress-track {
+    height: 6px; background: var(--surface-2); border-radius: 4px; overflow: hidden; margin: 14px 0 4px;
+  }
+  .progress-fill { height: 100%; background: var(--accent); border-radius: 4px; transition: width .25s ease; }
+
+  .day-pill {
+    display: inline-block; background: var(--surface-2); color: var(--text-dim);
+    font-size: 12px; font-weight: 700; padding: 5px 12px; border-radius: 999px;
+    margin-bottom: 10px;
+  }
+
+  .empty-state {
+    text-align: center; padding: 50px 20px; color: var(--text-dim);
+  }
+  .empty-state .big { font-size: 44px; margin-bottom: 10px; }
+
+  /* ---------- Schedule (day list) ---------- */
+  .day-card { padding: 16px; }
+  .day-card-head {
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;
+  }
+  .day-card-head .name-wrap { display: flex; align-items: center; gap: 8px; }
+  .rest-badge {
+    font-size: 11px; font-weight: 700; color: var(--text-dim);
+    background: var(--surface-2); padding: 3px 9px; border-radius: 999px;
+  }
+  .mini-ex-list { margin-top: 8px; font-size: 13px; color: var(--text-dim); }
+  .mini-ex-list div { padding: 3px 0; }
+
+  input[type="text"], input[type="number"] {
+    background: var(--surface-2); border: 1px solid var(--border); color: var(--text);
+    border-radius: 8px; padding: 10px 12px; font-size: 14px; font-family: inherit;
+    width: 100%;
+  }
+  input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+  label.field-label { font-size: 12px; color: var(--text-dim); font-weight: 600; margin-bottom: 5px; display: block; }
+
+  /* ---------- Modal / builder overlay ---------- */
+  .overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,.55);
+    display: flex; align-items: flex-end; justify-content: center; z-index: 100;
+  }
+  .sheet {
+    background: var(--bg); width: 100%; max-width: 560px;
+    border-radius: 18px 18px 0 0; max-height: 88vh; overflow-y: auto;
+    padding: 18px 16px calc(20px + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--border);
+  }
+  .sheet-head {
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;
+  }
+  .sheet-title { font-family: var(--font-display); font-size: 22px; letter-spacing: .5px; }
+
+  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .chip {
+    background: var(--surface-2); border: 1px solid var(--border); color: var(--text-dim);
+    padding: 8px 14px; border-radius: 999px; font-size: 13px; font-weight: 600;
+  }
+  .chip.active { background: var(--accent); border-color: var(--accent); color: var(--accent-text); }
+
+  .pick-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 11px 4px; border-bottom: 1px solid var(--border); font-size: 14px;
+  }
+  .pick-row:last-child { border-bottom: none; }
+  .pick-name { font-weight: 600; }
+  .check-circle {
+    width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--border);
+    flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 13px;
+    color: transparent;
+  }
+  .check-circle.on { background: var(--accent); border-color: var(--accent); color: var(--accent-text); }
+
+  .sets-input-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 9px 4px; border-bottom: 1px solid var(--border);
+  }
+  .sets-input-row:last-child { border-bottom: none; }
+  .stepper { display: flex; align-items: center; gap: 10px; }
+  .stepper button {
+    width: 28px; height: 28px; border-radius: 8px; background: var(--surface-2);
+    border: 1px solid var(--border); color: var(--text); font-size: 16px; font-weight: 700;
+  }
+  .stepper .num { min-width: 18px; text-align: center; font-weight: 700; }
+
+  .field-row { margin-bottom: 14px; }
+
+  .history-item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 13px 0; border-bottom: 1px solid var(--border); font-size: 14px;
+  }
+  .history-item:last-child { border-bottom: none; }
+  .history-item .hd { font-weight: 700; }
+  .history-item .hm { color: var(--text-dim); font-size: 12px; }
+
+  .search-input { margin-bottom: 12px; }
+</style>
+</head>
+<body>
+
+<div class="wrap" id="app"></div>
+
+<div class="tabbar">
+  <div class="tabbar-inner">
+    <button class="tab active" data-tab="today"><span class="ic">🏋️</span>اليوم</button>
+    <button class="tab" data-tab="schedule"><span class="ic">📋</span>الجدول</button>
+    <button class="tab" data-tab="history"><span class="ic">📈</span>السجل</button>
+  </div>
+</div>
+
+<script>
+/* ================= Exercise Database ================= */
+const DB = {
+  "صدر": ["بنش برس مسطح (بار)","بنش برس مسطح (دمبل)","بنش برس مائل (بار)","بنش برس مائل (دمبل)","بنش برس مقلوب (Decline)","فراشة جهاز (Pec Deck)","كابل فراشة (Cable Crossover)","فراشة دمبل","Chest Press جهاز","Dips للصدر"],
+  "ظهر": ["Lat Pulldown","عقلة (Pull-up)","Seated Cable Row","Machine Row","T-Bar Row","تجديف بار (Barbell Row)","تجديف دمبل (Dumbbell Row)","Pullover"],
+  "أكتاف": ["Shoulder Press جهاز","Shoulder Press دمبل","Military Press بار","رفرفة جانبي دمبل (Lateral Raise)","رفرفة جانبي كابل","أكتاف أمامي (Front Raise)","Arnold Press","Upright Row"],
+  "أكتاف خلفية": ["Rear Delt Fly جهاز","Cable Reverse Fly","Face Pull","رفرفة خلفية دمبل"],
+  "تراي": ["Tricep Pushdown كابل","Overhead Tricep Extension","Skull Crusher","Dips للتراي","Close Grip Bench Press","Tricep Kickback"],
+  "باي": ["Bicep Curl بار","Bicep Curl دمبل","Cable Curl","Preacher Curl","Hammer Curl","Concentration Curl"],
+  "أرجل": ["Squat (سكوات)","Leg Press","Leg Extension","Leg Curl","Lunges","Romanian Deadlift","Calf Raise","Hip Thrust","Bulgarian Split Squat"],
+  "بطن": ["Crunch جهاز","Plank","Leg Raise","Cable Crunch","Russian Twist"],
+  "كارديو": ["جري (Treadmill)","عجلة (Bike)","Elliptical","Stair Master"]
+};
+const MUSCLES = Object.keys(DB);
+
+/* ================= State (backed by server) ================= */
+let state = { days: [], currentDayIndex: 0, history: [] };
+let currentUserEmail = "";
+let saveTimer = null;
+
+async function checkAuthAndLoad(){
+  const meRes = await fetch("/api/me");
+  const me = await meRes.json();
+  if(!me.loggedIn){
+    window.location.href = "/login.html";
+    return;
+  }
+  currentUserEmail = me.email;
+  const res = await fetch("/api/state");
+  if(res.ok) state = await res.json();
+  render();
+}
+
+function saveState(){
+  // debounce so rapid taps don't fire a request each time
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(()=>{
+    fetch("/api/state", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(state)
+    }).catch(()=>{});
+  }, 250);
+}
+function uid(){ return Math.random().toString(36).slice(2,9); }
+
+function bindLogout(){
+  const btn = document.getElementById("logoutBtn");
+  if(btn) btn.onclick = async ()=>{
+    await fetch("/api/logout", { method: "POST" });
+    window.location.href = "/login.html";
+  };
+}
+
+/* ================= Router ================= */
+let activeTab = "today";
+document.querySelectorAll(".tab").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    activeTab = btn.dataset.tab;
+    document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active", b===btn));
+    render();
+  });
+});
+
+/* ================= Render root ================= */
+function render(){
+  const app = document.getElementById("app");
+  app.innerHTML = topbarHTML();
+  bindLogout();
+  if(state.days.length === 0){
+    app.innerHTML += emptyStateHTML();
+    bindEmptyState();
+    return;
+  }
+  if(activeTab === "today") { app.innerHTML += todayHTML(); bindToday(); }
+  else if(activeTab === "schedule") { app.innerHTML += scheduleHTML(); bindSchedule(); }
+  else if(activeTab === "history") { app.innerHTML += historyHTML(); }
+}
+
+function topbarHTML(){
+  return `
+  <div class="topbar">
+    <div class="brand">جدول <span>الجيم</span></div>
+    <div style="text-align:left;">
+      <div class="date">${todayLabel()}</div>
+      <button class="icon-btn" id="logoutBtn" style="font-size:12px; padding:2px 0;">${currentUserEmail || ''} · خروج</button>
+    </div>
+  </div>`;
+}
+function todayLabel(){
+  const d = new Date();
+  return d.toLocaleDateString('ar-EG', { weekday:'long', day:'numeric', month:'long' });
+}
+
+function emptyStateHTML(){
+  return `
+  <div class="empty-state">
+    <div class="big">🏋️‍♂️</div>
+    <h3>لسه مفيش جدول</h3>
+    <p class="muted">ابني جدول تمرينك الأول عشان تقدر تتابع بيه في الجيم</p>
+    <br>
+    <button class="btn btn-accent" id="startBuildBtn">ابدأ ببناء الجدول</button>
+  </div>`;
+}
+function bindEmptyState(){
+  document.getElementById("startBuildBtn").onclick = ()=> openDayEditor(null);
+}
+
+/* ================= Today Tab ================= */
+function todayHTML(){
+  const day = state.days[state.currentDayIndex % state.days.length];
+  if(day.isRest){
+    return `
+    <div class="card" style="text-align:center; padding:36px 18px;">
+      <div class="day-pill">${day.name}</div>
+      <div style="font-size:40px; margin:8px 0 6px;">🛌</div>
+      <h2 style="font-family:var(--font-display); font-size:26px; letter-spacing:.5px;">يوم راحة</h2>
+      <p class="muted">خلي جسمك يتعافى ويكبر. أراك بكرة 💪</p>
+      <br>
+      <button class="btn btn-accent btn-block" id="finishRestBtn">التالي</button>
+    </div>`;
+  }
+  const totalSets = day.exercises.reduce((a,e)=>a+e.sets,0);
+  const doneSets = day.exercises.reduce((a,e)=>a+e.doneSets.filter(Boolean).length,0);
+  const pct = totalSets ? Math.round(doneSets/totalSets*100) : 0;
+  const allDone = totalSets>0 && doneSets===totalSets;
+
+  const rows = day.exercises.map(ex => `
+    <div class="ex-row">
+      <div class="ex-info">
+        <div class="ex-name">${ex.name}</div>
+        <div class="ex-muscle">${ex.muscle}</div>
+      </div>
+      <div class="set-dots">
+        ${ex.doneSets.map((done,i)=>`<button class="dot ${done?'done':''}" data-ex="${ex.id}" data-set="${i}">${i+1}</button>`).join("")}
+      </div>
+    </div>`).join("");
+
+  return `
+    <div class="day-pill">${day.name}</div>
+    <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+    <p class="muted" style="margin:0 0 16px;">${doneSets} من ${totalSets} مجموعة خلصت</p>
+    <div class="card">${rows}</div>
+    <button class="btn ${allDone?'btn-accent':'btn-ghost'} btn-block" id="finishDayBtn">إنهاء اليوم</button>
+  `;
+}
+function bindToday(){
+  document.querySelectorAll(".dot").forEach(dot=>{
+    dot.onclick = ()=>{
+      const day = state.days[state.currentDayIndex % state.days.length];
+      const ex = day.exercises.find(e=>e.id===dot.dataset.ex);
+      const i = Number(dot.dataset.set);
+      ex.doneSets[i] = !ex.doneSets[i];
+      saveState(); render();
+    };
+  });
+  const finishBtn = document.getElementById("finishDayBtn");
+  if(finishBtn) finishBtn.onclick = finishDay;
+  const restBtn = document.getElementById("finishRestBtn");
+  if(restBtn) restBtn.onclick = finishDay;
+}
+function finishDay(){
+  const day = state.days[state.currentDayIndex % state.days.length];
+  state.history.unshift({ date: new Date().toISOString(), dayName: day.name, isRest: !!day.isRest });
+  day.exercises.forEach(e=> e.doneSets = e.doneSets.map(()=>false));
+  state.currentDayIndex = (state.currentDayIndex + 1) % state.days.length;
+  saveState(); render();
+}
+
+/* ================= Schedule Tab ================= */
+function scheduleHTML(){
+  const cards = state.days.map((day, idx) => `
+    <div class="card day-card">
+      <div class="day-card-head">
+        <div class="name-wrap">
+          <strong>${day.name}</strong>
+          ${day.isRest ? '<span class="rest-badge">راحة</span>' : ''}
+          ${idx===state.currentDayIndex % state.days.length ? '<span class="rest-badge" style="color:var(--accent); border-color:var(--accent);">النهاردة</span>' : ''}
+        </div>
+        <div>
+          <button class="icon-btn" data-edit="${idx}">✏️</button>
+          <button class="icon-btn" data-del="${idx}">🗑️</button>
+        </div>
+      </div>
+      ${!day.isRest ? `<div class="mini-ex-list">${day.exercises.map(e=>`<div>• ${e.name} — ${e.sets} مجموعات</div>`).join("") || '<div>مفيش تمارين لسه</div>'}</div>` : ''}
+    </div>
+  `).join("");
+
+  return `
+    <div class="section-title">الجدول</div>
+    ${cards}
+    <button class="btn btn-ghost btn-block" id="addDayBtn">+ إضافة يوم</button>
+  `;
+}
+function bindSchedule(){
+  document.getElementById("addDayBtn").onclick = ()=> openDayEditor(null);
+  document.querySelectorAll("[data-edit]").forEach(b=>{
+    b.onclick = ()=> openDayEditor(Number(b.dataset.edit));
+  });
+  document.querySelectorAll("[data-del]").forEach(b=>{
+    b.onclick = ()=>{
+      const idx = Number(b.dataset.del);
+      state.days.splice(idx,1);
+      if(state.currentDayIndex >= state.days.length) state.currentDayIndex = 0;
+      saveState(); render();
+    };
+  });
+}
+
+/* ================= History Tab ================= */
+function historyHTML(){
+  if(state.history.length===0){
+    return `<div class="empty-state"><div class="big">📈</div><h3>لسه مفيش سجل</h3><p class="muted">أول ما تخلص يوم تمرين هيتسجل هنا</p></div>`;
+  }
+  const items = state.history.map(h=>{
+    const d = new Date(h.date);
+    const dateStr = d.toLocaleDateString('ar-EG', { day:'numeric', month:'short' });
+    const timeStr = d.toLocaleTimeString('ar-EG', { hour:'2-digit', minute:'2-digit' });
+    return `<div class="history-item">
+      <div><div class="hd">${h.dayName}${h.isRest?' 🛌':' ✅'}</div><div class="hm">${dateStr}</div></div>
+      <div class="hm">${timeStr}</div>
+    </div>`;
+  }).join("");
+  return `<div class="section-title">السجل</div><div class="card">${items}</div>`;
+}
+
+/* ================= Day Editor (bottom sheet) ================= */
+function openDayEditor(dayIndex){
+  const isNew = dayIndex === null;
+  const day = isNew
+    ? { id: uid(), name: `يوم ${state.days.length+1}`, isRest:false, exercises: [] }
+    : JSON.parse(JSON.stringify(state.days[dayIndex]));
+
+  const overlay = document.createElement("div");
+  overlay.className = "overlay";
+  overlay.innerHTML = `
+    <div class="sheet">
+      <div class="sheet-head">
+        <div class="sheet-title">${isNew ? "يوم جديد" : "تعديل اليوم"}</div>
+        <button class="icon-btn" id="closeSheet">✕</button>
+      </div>
+
+      <div class="field-row">
+        <label class="field-label">اسم اليوم</label>
+        <input type="text" id="dayNameInput" value="${day.name}">
+      </div>
+
+      <div class="chip-row">
+        <button class="chip ${!day.isRest?'active':''}" id="chipWorkout" type="button">يوم تمرين</button>
+        <button class="chip ${day.isRest?'active':''}" id="chipRest" type="button">يوم راحة</button>
+      </div>
+
+      <div id="exerciseSection"></div>
+
+      <br>
+      <button class="btn btn-accent btn-block" id="saveDayBtn">حفظ اليوم</button>
+      ${!isNew ? `<br><button class="btn btn-danger btn-block" id="deleteDayBtn" style="margin-top:8px;">حذف اليوم</button>` : ''}
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  function renderExSection(){
+    const sec = overlay.querySelector("#exerciseSection");
+    if(day.isRest){ sec.innerHTML = ""; return; }
+    const rows = day.exercises.map(ex => `
+      <div class="pick-row">
+        <div>
+          <div class="pick-name">${ex.name}</div>
+          <div class="muted" style="font-size:12px;">${ex.muscle} · ${ex.sets} مجموعات</div>
+        </div>
+        <button class="icon-btn" data-rm="${ex.id}">✕</button>
+      </div>
+    `).join("");
+    sec.innerHTML = `
+      <div class="field-row">
+        <label class="field-label">التمارين</label>
+        <div class="card" style="padding:6px 14px;">
+          ${rows || '<p class="muted" style="padding:10px 0;">مفيش تمارين مضافة</p>'}
+        </div>
+        <br>
+        <button class="btn btn-ghost btn-block" id="addExBtn" type="button">+ إضافة تمرين</button>
+      </div>
+    `;
+    sec.querySelectorAll("[data-rm]").forEach(b=>{
+      b.onclick = ()=>{
+        day.exercises = day.exercises.filter(e=>e.id!==b.dataset.rm);
+        renderExSection();
+      };
+    });
+    sec.querySelector("#addExBtn").onclick = ()=> openExercisePicker(day, renderExSection);
+  }
+  renderExSection();
+
+  overlay.querySelector("#chipWorkout").onclick = ()=>{ day.isRest=false; overlay.querySelector("#chipWorkout").classList.add("active"); overlay.querySelector("#chipRest").classList.remove("active"); renderExSection(); };
+  overlay.querySelector("#chipRest").onclick = ()=>{ day.isRest=true; overlay.querySelector("#chipRest").classList.add("active"); overlay.querySelector("#chipWorkout").classList.remove("active"); renderExSection(); };
+
+  overlay.querySelector("#closeSheet").onclick = ()=> overlay.remove();
+  overlay.addEventListener("click", (e)=>{ if(e.target===overlay) overlay.remove(); });
+
+  overlay.querySelector("#saveDayBtn").onclick = ()=>{
+    day.name = overlay.querySelector("#dayNameInput").value.trim() || day.name;
+    if(isNew) state.days.push(day);
+    else state.days[dayIndex] = day;
+    saveState();
+    overlay.remove();
+    render();
+  };
+  const delBtn = overlay.querySelector("#deleteDayBtn");
+  if(delBtn) delBtn.onclick = ()=>{
+    state.days.splice(dayIndex,1);
+    if(state.currentDayIndex >= state.days.length) state.currentDayIndex = 0;
+    saveState();
+    overlay.remove();
+    render();
+  };
+}
+
+/* ================= Exercise Picker (nested sheet) ================= */
+function openExercisePicker(day, onDone){
+  let activeMuscle = MUSCLES[0];
+  let query = "";
+
+  const overlay = document.createElement("div");
+  overlay.className = "overlay";
+  overlay.style.zIndex = 200;
+  overlay.innerHTML = `
+    <div class="sheet">
+      <div class="sheet-head">
+        <div class="sheet-title">إضافة تمرين</div>
+        <button class="icon-btn" id="closePicker">✕</button>
+      </div>
+      <input type="text" class="search-input" id="exSearch" placeholder="دور على تمرين...">
+      <div class="chip-row" id="muscleChips"></div>
+      <div id="pickList"></div>
+      <div class="field-row" style="margin-top:10px;">
+        <label class="field-label">مش لاقي التمرين؟ ضيفه بنفسك</label>
+        <div style="display:flex; gap:8px;">
+          <input type="text" id="customExInput" placeholder="اسم التمرين">
+          <button class="btn btn-ghost btn-sm" id="addCustomBtn" type="button">إضافة</button>
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  const chipsEl = overlay.querySelector("#muscleChips");
+  chipsEl.innerHTML = MUSCLES.map(m=>`<button class="chip ${m===activeMuscle?'active':''}" data-m="${m}" type="button">${m}</button>`).join("");
+  chipsEl.querySelectorAll("[data-m]").forEach(c=>{
+    c.onclick = ()=>{ activeMuscle = c.dataset.m; chipsEl.querySelectorAll(".chip").forEach(x=>x.classList.toggle("active", x===c)); renderList(); };
+  });
+
+  function addExercise(name, muscle){
+    day.exercises.push({ id: uid(), name, muscle, sets: 3, doneSets:[false,false,false] });
+  }
+  function isAdded(name){ return day.exercises.some(e=>e.name===name); }
+
+  function renderList(){
+    const list = overlay.querySelector("#pickList");
+    let items = DB[activeMuscle];
+    if(query.trim()){
+      const q = query.trim();
+      items = Object.values(DB).flat().filter(n=>n.includes(q));
+    }
+    list.innerHTML = items.map(name=>{
+      const added = isAdded(name);
+      return `<div class="pick-row">
+        <div class="pick-name">${name}</div>
+        <button class="check-circle ${added?'on':''}" data-name="${name.replace(/"/g,'&quot;')}" data-muscle="${query.trim()? muscleOf(name):activeMuscle}">${added?'✓':''}</button>
+      </div>`;
+    }).join("") || `<p class="muted" style="padding:14px 0;">مفيش نتايج</p>`;
+
+    list.querySelectorAll("[data-name]").forEach(btn=>{
+      btn.onclick = ()=>{
+        const name = btn.dataset.name;
+        const muscle = btn.dataset.muscle;
+        if(isAdded(name)){
+          day.exercises = day.exercises.filter(e=>e.name!==name);
+        } else {
+          addExercise(name, muscle);
+        }
+        renderList();
+        onDone();
+      };
+    });
+  }
+  function muscleOf(name){
+    for(const m of MUSCLES){ if(DB[m].includes(name)) return m; }
+    return activeMuscle;
+  }
+  renderList();
+
+  overlay.querySelector("#exSearch").oninput = (e)=>{ query = e.target.value; renderList(); };
+  overlay.querySelector("#addCustomBtn").onclick = ()=>{
+    const input = overlay.querySelector("#customExInput");
+    const name = input.value.trim();
+    if(!name) return;
+    addExercise(name, activeMuscle);
+    input.value = "";
+    renderList();
+    onDone();
+  };
+
+  overlay.querySelector("#closePicker").onclick = ()=> overlay.remove();
+  overlay.addEventListener("click", (e)=>{ if(e.target===overlay) overlay.remove(); });
+}
+
+/* ================= Init ================= */
+checkAuthAndLoad();
+</script>
+</body>
+</html>
